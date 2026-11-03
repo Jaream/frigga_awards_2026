@@ -40,7 +40,7 @@ function h(t, p, ...k) {
   for (const c of k) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
   return e;
 }
-const TITLE = 'Ideensammlung'; // Überschrift der Seite
+const TITLE = 'Frigga-Awards Nominierungen'; // Überschrift der Seite
 document.title = TITLE;
 const show = (...n) => app.replaceChildren(h('h1', {}, TITLE), ...n);
 let sess = null; // {id, code, name, is_mod}
