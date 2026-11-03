@@ -19,10 +19,10 @@ button.g{background:transparent;color:var(--mu);border:1px solid var(--bd)}
 table{border-collapse:collapse;width:100%}td{padding:4px 6px;border-bottom:1px solid var(--bd)}
 </style></head><body><main id="app"></main>
 <script>
-// === Hier deine Supabase-Daten eintragen (Project Settings → API) ===
+// ______________________________________________________________
 const SUPABASE_URL = 'https://lvcgymcfmapbevauozsf.supabase.co';
 const ANON_KEY = 'sb_publishable_yMc1Gg0UFECxgtNRemro1w_lbMzVJGX';
-// ====================================================================
+// ______________________________________________________________
 const app = document.getElementById('app');
 async function rpc(fn, args) {
   const r = await fetch(SUPABASE_URL + '/rest/v1/rpc/' + fn, {
@@ -40,8 +40,7 @@ function h(t, p, ...k) {
   for (const c of k) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
   return e;
 }
-const TITLE = 'Frigga-Awards Nominierungen'; // Überschrift der Seite
-document.title = TITLE;
+const TITLE = 'Frigga-Awards Nominierungen';
 const show = (...n) => app.replaceChildren(h('h1', {}, TITLE), ...n);
 let sess = null; // {id, code, name, is_mod}
 
