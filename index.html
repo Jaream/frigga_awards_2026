@@ -67,7 +67,7 @@ async function boardView() {
     h('button', {cls: 'g', on: {click: boardView}}, 'Aktualisieren'),
     h('button', {cls: 'g', on: {click: () => { sess = null; loginView(); }}}, 'Abmelden'));
   const cards = b.people.map(t => {
-    const ta = h('textarea', {placeholder: 'Deine Nominierungen zu ' + t.name + ' …'}); ta.value = b.mine[t.id] || '';
+    const ta = h('textarea', {placeholder: 'Deine Nominierungen zu ' + t.name + ' …' + '\n Pro Nominierung am besten eine neue Zeile'}); ta.value = b.mine[t.id] || '';
     const st = h('span', {cls: 'ok'});
     const sv = h('button', {on: {click: async () => {
       try { await rpc('save_entry', {p_id: sess.id, p_code: sess.code, p_target: t.id, p_body: ta.value}); st.textContent = 'Gespeichert.'; }
