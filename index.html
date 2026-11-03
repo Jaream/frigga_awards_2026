@@ -5,7 +5,7 @@
 <style>
 :root{--bg:#f6f5f1;--card:#fff;--tx:#1f1f1c;--mu:#6b6a63;--bd:#dddbd2;--ac:#2f5d50;--acx:#fff;--er:#b3261e;color-scheme:light}
 @media (prefers-color-scheme:dark){:root{--bg:#171715;--card:#22221f;--tx:#eeede6;--mu:#a2a198;--bd:#3a3935;--ac:#7fc4af;--acx:#10211c;--er:#f2918a;color-scheme:dark}}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 "Courier New", monospace}
 main{max-width:720px;margin:0 auto;padding:20px 16px 48px}
 h1{font-size:22px;margin:0 0 4px}h2{font-size:17px;margin:0 0 8px}
 .mu{color:var(--mu);font-size:14px}.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;margin:14px 0}
@@ -67,7 +67,7 @@ async function boardView() {
     h('button', {cls: 'g', on: {click: boardView}}, 'Aktualisieren'),
     h('button', {cls: 'g', on: {click: () => { sess = null; loginView(); }}}, 'Abmelden'));
   const cards = b.people.map(t => {
-    const ta = h('textarea', {placeholder: 'Deine Idee zu ' + t.name + ' …'}); ta.value = b.mine[t.id] || '';
+    const ta = h('textarea', {placeholder: 'Deine Nominierungen zu ' + t.name + ' …'}); ta.value = b.mine[t.id] || '';
     const st = h('span', {cls: 'ok'});
     const sv = h('button', {on: {click: async () => {
       try { await rpc('save_entry', {p_id: sess.id, p_code: sess.code, p_target: t.id, p_body: ta.value}); st.textContent = 'Gespeichert.'; }
