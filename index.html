@@ -76,9 +76,15 @@ async function boardView() {
     const kids = [h('h2', {}, 'Zu: ' + t.name), h('div', {cls: 'mu'}, 'Dein Beitrag'), ta, h('div', {cls: 'row'}, sv, st)];
     if (sess.is_mod) {
       const rest = b.others.filter(o => o.target === t.id);
-      kids.push(h('div', {cls: 'mu', style: 'margin-top:14px'}, 'Beiträge der anderen'));
-      if (!rest.length) kids.push(h('div', {cls: 'mu'}, 'Noch nichts.'));
-      rest.forEach(o => kids.push(h('div', {cls: 'in'}, o.body)));
+      
+      const details = h('details', {cls: 'other-details'},
+        h('summary', {cls: 'mu'}, 'Beiträge der anderen'),
+        rest.length
+          ? rest.map(o => h('div', {cls:'in'}, o.body))
+          : h('div', {cls: 'mu'}, 'Noch nichts')
+      );
+
+      kids.push(h('div', {style: 'margin-top:14px'}, details));
     }
     return h('div', {cls: 'card'}, ...kids);
   });
