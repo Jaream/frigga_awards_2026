@@ -66,6 +66,11 @@ async function boardView() {
   const head = h('div', {cls: 'row'}, h('span', {cls: 'mu'}, 'Angemeldet als ' + sess.name + (sess.is_mod ? ' (Moderator:in)' : '')),
     h('button', {cls: 'g', on: {click: boardView}}, 'Aktualisieren'),
     h('button', {cls: 'g', on: {click: () => { sess = null; loginView(); }}}, 'Abmelden'));
+  const info = h('div', { cls: 'info' },
+    'Hier kannst du deine Nominierungen zu jeder Person eintragen. ' +
+    'Trage bitte pro Nominierung eine eigene Zeile ein. Deine Beiträge werden gespeichert, ' +
+    'sobald du auf „Speichern“ klickst.'
+  );
   const cards = b.people.map(t => {
     const ta = h('textarea', {placeholder: 'Deine Nominierungen zu ' + t.name + ' …' + '\n Pro Nominierung am besten eine neue Zeile'}); ta.value = b.mine[t.id] || '';
     const st = h('span', {cls: 'ok'});
@@ -77,18 +82,19 @@ async function boardView() {
     if (sess.is_mod) {
       const rest = b.others.filter(o => o.target === t.id);
       
-      const details = h('details', {cls: 'other-details'},
-        h('summary', {cls: 'mu'}, 'Beiträge der anderen'),
-        rest.length
-          ? rest.map(o => h('div', {cls:'in'}, o.body))
-          : h('div', {cls: 'mu'}, 'Noch nichts')
+
+      const details = h('details', { cls: 'other-details' },
+        h('summary', { cls: 'mu' }, 'Beiträge der anderen'),
+        ...(rest.length
+          ? rest.map(o => h('div', { cls: 'in' }, o.body))
+          : [h('div', { cls: 'mu' }, 'Noch nichts')])
       );
 
       kids.push(h('div', {style: 'margin-top:14px'}, details));
     }
     return h('div', {cls: 'card'}, ...kids);
   });
-  show(head, ...cards);
+  show(head, info, ...cards);
 }
 
 async function adminView() {
