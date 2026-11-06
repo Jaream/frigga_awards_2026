@@ -41,7 +41,18 @@ function h(t, p, ...k) {
   return e;
 }
 const TITLE = 'Frigga-Awards Nominierungen';
-const show = (...n) => app.replaceChildren(h('h1', {}, TITLE), ...n);
+const show = (...n) => app.replaceChildren(
+  h('div', { cls: 'title-row' },
+    h('img', {
+      src: 'frigga-awards_logo.svg',
+      alt: 'Frigga Awards Logo',
+      width: 32,
+      height: 32
+    }),
+    h('h1', {}, TITLE)
+  ),
+  ...n
+);
 let sess = null; // {id, code, name, is_mod}
 
 async function loginView() {
