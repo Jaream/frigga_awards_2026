@@ -42,14 +42,14 @@ function h(t, p, ...k) {
   for (const c of k) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
   return e;
 }
-const TITLE = 'Frigga-Awards Nominierungen';
+const TITLE = '     Nominierungen';
 const show = (...n) => app.replaceChildren(
   h('div', { cls: 'title-row' },
     h('img', {
       src: 'frigga-awards_logo.svg',
       alt: 'Frigga Awards Logo',
-      width: 32,
-      height: 32
+      width: 128,
+      height: 128
     }),
     h('h1', {}, TITLE)
   ),
