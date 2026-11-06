@@ -67,9 +67,8 @@ async function boardView() {
     h('button', {cls: 'g', on: {click: boardView}}, 'Aktualisieren'),
     h('button', {cls: 'g', on: {click: () => { sess = null; loginView(); }}}, 'Abmelden'));
   const info = h('div', { cls: 'info' },
-    'Hier kannst du deine Nominierungen zu jeder Person eintragen. ' +
-    'Trage bitte pro Nominierung eine eigene Zeile ein. Deine Beiträge werden gespeichert, ' +
-    'sobald du auf „Speichern“ klickst.'
+    'Hallo, das ist ein ' +
+    'Infotext '
   );
   const cards = b.people.map(t => {
     const ta = h('textarea', {placeholder: 'Deine Nominierungen zu ' + t.name + ' …' + '\n Pro Nominierung am besten eine neue Zeile'}); ta.value = b.mine[t.id] || '';
