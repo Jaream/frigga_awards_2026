@@ -19,6 +19,7 @@ button.g{background:transparent;color:var(--mu);border:1px solid var(--bd)}
 table{border-collapse:collapse;width:100%}td{padding:4px 6px;border-bottom:1px solid var(--bd)}
 .title-row {display: flex;align-items: center;gap: 10px;margin-bottom: 14px;}
 .title-row img {flex: 0 0 auto;}
+.info { white-space: pre-line;}
 </style></head><body><main id="app"></main>
 <script>
 // ______________________________________________________________
@@ -80,17 +81,18 @@ async function boardView() {
     h('button', {cls: 'g', on: {click: boardView}}, 'Aktualisieren'),
     h('button', {cls: 'g', on: {click: () => { sess = null; loginView(); }}}, 'Abmelden'));
   const info = h('div', { cls: 'info' },
-    'Hallo, das ist ein ' +
-    'Infotext '
+    'Hier kannst du deine Nominierungen für alle Personen (außer dich selbst) eintragen. \n' +
+    'Bei mehreren Nominierungen für eine Person, pro Nominierung am besten eine neue Zeile beginnen. \n' +
+    'Bitte danach auf Speichern klicken.\n Nicht wundern, deine Nominierungen bleiben dann trotzdem im Textfeld stehen, damit du sie jederzeit bearbeiten kannst.'
   );
   const cards = b.people.map(t => {
-    const ta = h('textarea', {placeholder: 'Deine Nominierungen zu ' + t.name + ' …' + '\n Pro Nominierung am besten eine neue Zeile'}); ta.value = b.mine[t.id] || '';
+    const ta = h('textarea', {placeholder: 'Deine Nominierung(-en) zu ' + t.name}); ta.value = b.mine[t.id] || '';
     const st = h('span', {cls: 'ok'});
     const sv = h('button', {on: {click: async () => {
       try { await rpc('save_entry', {p_id: sess.id, p_code: sess.code, p_target: t.id, p_body: ta.value}); st.textContent = 'Gespeichert.'; }
       catch (e) { st.className = 'er'; st.textContent = 'Fehler: ' + e.message; }
     }}}, 'Speichern');
-    const kids = [h('h2', {}, 'Zu: ' + t.name), h('div', {cls: 'mu'}, 'Dein Beitrag'), ta, h('div', {cls: 'row'}, sv, st)];
+    const kids = [h('h2', {}, 'Zu: ' + t.name), h('div', {cls: 'mu'}, ''), ta, h('div', {cls: 'row'}, sv, st)];
     if (sess.is_mod) {
       const rest = b.others.filter(o => o.target === t.id);
       
